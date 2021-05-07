@@ -3,13 +3,13 @@ import json
 
 
 def starter(args):
-    first_file = json.load(open(args.first_file))
-    second_file = json.load(open(args.second_file))
-    return get_diff(first_file, second_file)
+    return get_diff(args.first_file, args.second_file)
 
 
-def get_diff(first_file, second_file):
+def get_diff(args_first_file, args_second_file):
     res = {}
+    first_file = json.load(open(args_first_file))
+    second_file = json.load(open(args_second_file))
     first_keys = set(first_file.keys())
     second_keys = set(second_file.keys())
     all_keys = first_keys | second_keys
@@ -34,6 +34,6 @@ def get_diff(first_file, second_file):
 def dict_to_str(value):
     res = '{' + '\n'
     for key in list(value.keys()):
-        res += '  ' + str(key) + ':' + str(value.get(key)) + '\n'
+        res += '  ' + str(key) + ': ' + str(value.get(key)) + '\n'
     res += '}'
     return res

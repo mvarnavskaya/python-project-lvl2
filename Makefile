@@ -13,7 +13,7 @@ package-install:
 make lint:
 	poetry run flake8 gendiff
 
-test:
+pytest:
 	poetry run pytest gendiff tests
 	
 test-coverage:
