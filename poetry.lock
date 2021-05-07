@@ -82,3 +82,7 @@ scripts = [
 stua = [
     {file = "stua-0.2-py2.py3-none-any.whl", hash = "sha256:8838e168955fc6c205dd19055874a64dc2d446eb22da7621f1442af80875ae90"},
 ]
+pytest-cov = [
+    {file = "pytest-cov-2.11.1.tar.gz", hash = "sha256:359952d9d39b9f822d9d29324483e7ba04a3a17dd7d05aa6beb7ea01e359e5f7"},
+    {file = "pytest_cov-2.11.1-py2.py3-none-any.whl", hash = "sha256:bdb9fdb0b85a7cc825269a4c56b48ccaa5c7e365054b6038772c32ddcdc969da"},
+]
