@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "project2"
 authors = ["mvarnavskaya"]
 packages = [
-  { include = "scripts" },
+  { include = "gendiff" },
 ]
 
 [tool.poetry.dependencies]
@@ -12,7 +12,6 @@ python = "^3.8"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.1"
-scripts = "^2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
