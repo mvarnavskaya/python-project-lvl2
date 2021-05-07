@@ -19,7 +19,7 @@ before_script:
 
 script:
   - make lint
-  - make run_test
+  - make test-coverage
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
