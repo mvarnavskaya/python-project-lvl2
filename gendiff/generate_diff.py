@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import json
+from gendiff.parser import read_file
 
 
 def starter(args):
@@ -8,8 +8,8 @@ def starter(args):
 
 def get_diff(args_first_file, args_second_file):
     res = {}
-    first_file = json.load(open(args_first_file))
-    second_file = json.load(open(args_second_file))
+    first_file = read_file(args_first_file)
+    second_file = read_file(args_second_file)
     first_keys = set(first_file.keys())
     second_keys = set(second_file.keys())
     all_keys = first_keys | second_keys

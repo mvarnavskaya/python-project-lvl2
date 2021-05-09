@@ -1,5 +1,3 @@
-import json
-
 from gendiff import generate_diff
 
 
@@ -19,7 +17,4 @@ def test_flat_json():
         './tests/fixtures/file1.json',
         './tests/fixtures/file2.json'
     )
-    print(a)
-
-    print(b)
     assert len(a) == len(b)
