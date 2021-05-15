@@ -1,12 +1,13 @@
 import json
 
 
-def write(dic):
+def stylich(dic):
     diffe = '{\n'
     dicstr = write_dic(dic)
     indent = ' ' * 2
     dicstr = indent + dicstr.replace('\n', '\n' + indent)
     diffe += dicstr
+    # print(diffe)
     diffe = diffe[:-3] + diffe[-1]
     return diffe
 
@@ -16,7 +17,7 @@ def write_dic(dic):
     diffe = ''
     for item in dic.items():
         if isinstance(item[1][1], dict):
-            value = write(item[1][1])
+            value = stylich(item[1][1])
         else:
             value = item[1][1]
         if item[1][0] not in variable:
