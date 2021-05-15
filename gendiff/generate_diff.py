@@ -22,20 +22,28 @@ def diff(old, new):
     all_keys.sort()
     deleted = kold - knew
     added = knew - kold
-    bothed = knew & kold
     for key in all_keys:
+        oldvalue = old.get(key)
+        newvalue = new.get(key)
         if key in deleted:
-            diffe[key] = ['deleted', diff(old.get(key), old.get(key)) if isinstance(old.get(key), dict) else old.get(key)]
-        if key in added:
-            diffe[key] = ['added', diff(new.get(key), new.get(key)) if isinstance(new.get(key), dict) else new.get(key)]
-        if key in bothed:
-            oldvalue = old.get(key)
-            newvalue = new.get(key)
+            value = diff(oldvalue, oldvalue) if is_dict(oldvalue) else oldvalue
+            diffe[key] = ['deleted', value]
+        elif key in added:
+            value = diff(newvalue, newvalue) if is_dict(newvalue) else newvalue
+            diffe[key] = ['added', value]
+        else:
             if oldvalue != newvalue:
                 if isinstance(oldvalue, dict) and isinstance(newvalue, dict):
                     diffe[key] = ['changeddict', diff(oldvalue, newvalue)]
                 else:
-                    diffe[key] = ['changed', diff(oldvalue, newvalue) if isinstance(oldvalue, dict) and isinstance(newvalue, dict) else oldvalue, newvalue]
+                    diffe[key] = ['changed', oldvalue, newvalue]
             else:
-                diffe[key] = ['unchanged', diff(oldvalue, oldvalue) if isinstance(oldvalue, dict) else oldvalue]
+                value = diff(oldvalue, oldvalue) if is_dict(oldvalue) else oldvalue   # noqa: E501
+                diffe[key] = ['unchanged', value]
     return(diffe)
+
+
+def is_dict(value):
+    if isinstance(value, dict):
+        return True
+    return False

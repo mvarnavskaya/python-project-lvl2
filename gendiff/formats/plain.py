@@ -16,7 +16,7 @@ def format_plain(dic, addon='', lines=''):
             lines += f"{start}{key}' was added with value: {finish}\n"
         if value[0] == 'changeddict' or value[0] == 'changed':
             if isinstance(value[-1], dict):
-                lines = format_plain(value[-1], addon+key+'.', lines)
+                lines = format_plain(value[-1], addon + key + '.', lines)
             else:
                 lines += f"{start}{key}' was updated. From {format_value(value[1])} to {format_value(value[2])}\n"  # noqa: E501
     return lines
