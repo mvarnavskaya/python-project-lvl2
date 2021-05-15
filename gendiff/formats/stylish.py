@@ -1,13 +1,12 @@
-import json
+# -*- coding:utf-8 -*-
 
 
-def stylich(dic):
+def format_stylish(dic):
     diffe = '{\n'
     dicstr = write_dic(dic)
     indent = ' ' * 2
     dicstr = indent + dicstr.replace('\n', '\n' + indent)
     diffe += dicstr
-    # print(diffe)
     diffe = diffe[:-3] + diffe[-1]
     return diffe
 
@@ -17,7 +16,7 @@ def write_dic(dic):
     diffe = ''
     for item in dic.items():
         if isinstance(item[1][1], dict):
-            value = stylich(item[1][1])
+            value = format_stylish(item[1][1])
         else:
             value = item[1][1]
         if item[1][0] not in variable:
@@ -33,30 +32,3 @@ def write_dic(dic):
         if item[1][0] == 'unchanged' or item[1][0] == 'changeddict':
             diffe += f"  {item[0]}: {value}\n"
     return diffe + '}'
-
-
-def plain(dic, addon='', lines=''):
-    start = "Property '" + addon
-    ldic = list(dic)
-    for key in ldic:
-        value = dic.get(key)
-        if value[0] == 'deleted':
-            lines += f"{start}{key}' was removed\n"
-        if value[0] == 'added':
-            if isinstance(value[1], dict):
-                finish = "'complex value'"
-            else:
-                finish = f"'{value[1]}'"
-            lines += f"{start}{key}' was added with value: {finish}\n"
-        if value[0] == 'changeddict':
-            if isinstance(value[-1], dict):
-                lines = plain(value[-1], key+'.', lines)
-            else:
-                lines += f"{start}{key}' was changed from '{value[1]}' to '{value[2]}'\n"  # noqa: E501
-    return lines
-
-
-def make_json(new):
-    diffe = json.dumps(new)
-    return diffe
-

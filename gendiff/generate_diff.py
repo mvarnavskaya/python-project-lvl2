@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from gendiff.formatters import plain, make_json, stylich
+from gendiff.formats import call_formater, DEFAULT_STYLE
 from gendiff.parser import read_file
 
 
@@ -7,17 +7,11 @@ def starter(args):
     return get_diff(args.first_file, args.second_file, args.format)
 
 
-def get_diff(args_first_file, args_second_file, format='stylish'):
+def get_diff(args_first_file, args_second_file, output_format=DEFAULT_STYLE):
     before = read_file(args_first_file)
     after = read_file(args_second_file)
-    new = diff(before, after)
-    if format == 'plain':
-        diffe = plain(new)
-    elif format == 'json':
-        diffe = make_json(new)
-    else:
-        diffe = stylich(new)
-    return diffe
+    diffe = diff(before, after)
+    return call_formater(diffe, output_format)
 
 
 def diff(old, new):
