@@ -6,7 +6,7 @@ from gendiff import generate_diff
 
 def main():
     args = cli.run()
-    print(generate_diff.starter(args, format_name='stylish'))
+    print(generate_diff.starter(args))
 
 
 if __name__ == '__main__':

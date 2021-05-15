@@ -3,14 +3,19 @@ import os
 import yaml
 
 
+get_loader = {
+    '.json': json.load,
+    '.yaml': yaml.safe_load,
+    '.yml': yaml.safe_load,
+}.get
+
+
 def read_file(file_path):
-    ext = os.path.splitext(file_path)[-1]
-    if ext == '.json':
-        file = json.load(open(file_path))
-    elif ext == '.yml' or ext == '.yaml':
-        stream = open(file_path, 'r')
-        file = yaml.safe_load(stream)
-        stream.close()
-    else:
-        return "Sorry, our program not supported this format. Try 'Json' or 'Yml'"  # noqa: E501
-    return file
+    _, ext = os.path.splitext(file_path)
+    call_loader = get_loader(ext.lower())
+    if call_loader:
+        try:
+            with open(file_path) as data_file:
+                return call_loader(data_file)
+        except:
+            return "Sorry, our program not supported this format. Try 'Json' or 'Yml'"  # noqa: E501
