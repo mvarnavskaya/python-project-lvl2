@@ -47,7 +47,7 @@ answer = u'''{
 
 def test_genfiff_stylish():
     a = answer
-    b = generate_diff.get_diff(
+    b = generate_diff(
         './tests/fixtures/file3.json',
         './tests/fixtures/file4.json',
         'stylish'

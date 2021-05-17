@@ -7,7 +7,7 @@ def starter(args):
     return get_diff(args.first_file, args.second_file, args.format_name)
 
 
-def get_diff(args_first_file, args_second_file, output_format=DEFAULT_STYLE):
+def generate_diff(args_first_file, args_second_file, output_format=DEFAULT_STYLE):
     before = read_file(args_first_file)
     after = read_file(args_second_file)
     diffe = diff(before, after)

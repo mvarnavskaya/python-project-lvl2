@@ -6,7 +6,7 @@ answer = u'''{"follow": ["deleted", false], "host": ["unchanged", "hexlet.io"], 
 
 def test_flat_json():
     a = answer
-    b = generate_diff.get_diff(
+    b = generate_diff(
         './tests/fixtures/file1.json',
         './tests/fixtures/file2.json',
         'json'
