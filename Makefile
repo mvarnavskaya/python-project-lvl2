@@ -16,6 +16,9 @@ selfcheck: ## Checks the validity of the pyproject.toml file
 make lint:
 	poetry run flake8 gendiff
 
+cc-coverage: ## Prepare coverage report for Codeclimate
+	poetry run coverage xml
+	
 pytest:
 	poetry run pytest gendiff tests
 	
