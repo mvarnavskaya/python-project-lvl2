@@ -1,20 +1,8 @@
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 from gendiff.formats import call_formater, DEFAULT_STYLE
 from gendiff.parser import read_file
 
-
-def starter(args):
-    return diff(args.first_file, args.second_file, args.format_name)
-
-
-def generate_diff(args_first_file, args_second_file, output_format=DEFAULT_STYLE):  # noqa: E501
-    before = read_file(args_first_file)
-    after = read_file(args_second_file)
-    diffe = diff(before, after)
-    return call_formater(diffe, output_format)
-
-
-# -*- coding:utf-8 -*-
 
 STATUS = 'status'
 
@@ -26,6 +14,13 @@ UPDATED = 'updated'
 
 VALUE = 'value'
 UPDATED_VALUE = 'updated_value'
+
+
+def generate_diff(args_first_file, args_second_file, output_format=DEFAULT_STYLE):  # noqa: E501
+    before = read_file(args_first_file)
+    after = read_file(args_second_file)
+    diffe = diff(before, after)
+    return call_formater(diffe, output_format)
 
 
 def diff(first_data_set, second_data_set):
