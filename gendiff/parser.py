@@ -18,5 +18,5 @@ def read_file(file_path):
         try:
             with open(file_path) as data_file:
                 return call_loader(data_file)
-        except:
+        except:  # noqa: E722
             return "Sorry, our program not supported this format. Try 'Json' or 'Yml'"  # noqa: E501

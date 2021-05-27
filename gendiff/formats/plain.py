@@ -1,34 +1,56 @@
 # -*- coding:utf-8 -*-
+ADDED = 'added'
+NESTED = 'nested'
+REMOVED = 'removed'
+UNCHANGED = 'unchanged'
+UPDATED = 'updated'
+STATUS = 'status'
+VALUE = 'value'
+UPDATED_VALUE = 'updated_value'
 
 
-def format_plain(dic, addon='', lines=''):
-    start = "Property '" + addon
-    ldic = list(dic)
-    for key in ldic:
-        value = dic.get(key)
-        if value[0] == 'deleted':
-            lines += f"{start}{key}' was removed\n"
-        if value[0] == 'added':
-            if isinstance(value[1], dict):
-                finish = "[complex value]"
-            else:
-                finish = f"{format_value(value[1])}"
-            lines += f"{start}{key}' was added with value: {finish}\n"
-        if value[0] == 'changeddict' or value[0] == 'changed':
-            if isinstance(value[-1], dict):
-                lines = format_plain(value[-1], addon + key + '.', lines)
-            else:
-                lines += f"{start}{key}' was updated. From {format_value(value[1])} to {format_value(value[2])}\n"  # noqa: E501
-    return lines
+COMPLEX_VALUE = '[complex value]'
+
+ADDED_STR = "Property '{0}' was added with value: {1}"
+REMOVED_STR = "Property '{0}' was removed"
+UPDATED_STR = "Property '{0}' was updated. From {1} to {2}"
+
+
+def format_plain(diff):  # noqa:WPS210
+    plain_diff = []
+    for diff_key, diff_value in sorted(flatten(diff).items()):
+        status = diff_value[STATUS]
+        value = format_value(diff_value[VALUE])
+        if status == ADDED:
+            plain_diff.append(ADDED_STR.format(diff_key, value))
+        elif status == REMOVED:
+            plain_diff.append(REMOVED_STR.format(diff_key))
+        elif status == UPDATED:
+            updated_value = format_value(diff_value[UPDATED_VALUE])
+            plain_diff.append(UPDATED_STR.format(
+                diff_key, value, updated_value,
+            ))
+    return '\n'.join(plain_diff)
+
+
+def flatten(node, prefix='', flatt=None):
+    flatted_node = {} if flatt is None else flatt
+    for node_key, node_value in node.items():
+        new_key = '{0}.{1}'.format(prefix, node_key) if prefix else node_key
+        if node_value[STATUS] == NESTED:
+            flatten(node_value[VALUE], new_key, flatted_node)
+        else:
+            flatted_node[new_key] = node_value
+    return flatted_node
 
 
 def format_value(value):
+    if isinstance(value, dict):
+        return COMPLEX_VALUE
     if isinstance(value, bool):
         return str(value).lower()
     if value is None:
         return 'null'
     if isinstance(value, str):
         return "'{0}'".format(value)
-    elif value == {'key': 'value'}:
-        value = '[complex value]'
-    return value
+    return str(value)

@@ -1,7 +1,7 @@
 from gendiff import generate_diff
 
 
-answer = u'''{"follow": ["deleted", false], "host": ["unchanged", "hexlet.io"], "proxy": ["deleted", "123.234.53.22"], "timeout": ["changed", 50, 20], "verbose": ["added", true]}'''
+answer = u'''{"timeout": {"status": "updated", "value": 50, "updated_value": 20}, "host": {"status": "unchanged", "value": "hexlet.io"}, "follow": {"status": "removed", "value": false}, "proxy": {"status": "removed", "value": "123.234.53.22"}, "verbose": {"status": "added", "value": true}}'''
 
 
 def test_flat_json():
