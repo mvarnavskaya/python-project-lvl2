@@ -11,7 +11,7 @@ def run():
     parser.add_argument('second_file', type=str)
     parser.add_argument(
         '-f',
-        '--format_name',
+        '--format',
         default=DEFAULT_STYLE,
         help="set format of output (default: '{0}')".format(DEFAULT_STYLE)
     )
