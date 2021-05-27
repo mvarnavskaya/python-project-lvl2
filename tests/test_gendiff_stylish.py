@@ -48,7 +48,7 @@ answer = u'''{
     }
     group4: {
       - default: null
-      + default: 
+      + default:
       - foo: 0
       + foo: null
       - isNested: false
