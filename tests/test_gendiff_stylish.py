@@ -1,6 +1,5 @@
-import json
-
 from gendiff import generate_diff
+
 
 answer = u'''{
     common: {
@@ -56,7 +55,7 @@ answer = u'''{
       + isNested: none
       + key: false
         nest: {
-          - bar: 
+          - bar:
           + bar: 0
           - isNested: true
         }
@@ -66,6 +65,7 @@ answer = u'''{
     }
 }'''
 
+
 def test_genfiff_stylish():
     a = answer
     b = generate_diff(
@@ -73,5 +73,4 @@ def test_genfiff_stylish():
         './tests/fixtures/file4.yaml',
         'stylish'
     )
-    print(b)
     assert len(a) == len(b)
